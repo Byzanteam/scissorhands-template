@@ -1,14 +1,13 @@
-const {resolve} = require('path')
-const {CleanWebpackPlugin: Cleanup} = require('clean-webpack-plugin')
-const {VueLoaderPlugin} = require('vue-loader')
+const { resolve } = require('path')
+const { VueLoaderPlugin } = require('vue-loader')
 
-const {base, entry} = require('./manifest.json')
+const { base, entry } = require('./manifest.json')
 
 module.exports = {
   mode: 'production',
   entry,
   output: {
-    filename: '[contenthash].js',
+    filename: '[name].js',
     publicPath: base,
   },
   resolve: {
@@ -20,6 +19,10 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.jsx?$/,
+        use: 'babel-loader',
+      },
       {
         test: /\.css$/,
         use: [
@@ -59,12 +62,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new Cleanup(),
     new VueLoaderPlugin(),
   ],
-  devServer: {
-    contentBase: 'dist',
-    port: 8080,
-    writeToDisk: true,
-  },
 }
