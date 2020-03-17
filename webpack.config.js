@@ -1,14 +1,17 @@
 const { resolve } = require('path')
+const ESMOutputPlugin = require('@purtuga/esm-webpack-plugin')
 const { VueLoaderPlugin } = require('vue-loader')
 
-const { base, entry } = require('./manifest.json')
+const { entry, publicPath } = require('./manifest.js')
 
 module.exports = {
   mode: 'production',
   entry,
   output: {
     filename: '[name].js',
-    publicPath: base,
+    library: 'LIB',
+    libraryTarget: 'var',
+    publicPath,
   },
   resolve: {
     extensions: ['.js', '.json', '.less', '.sass', '.scss', '.vue'],
@@ -62,6 +65,7 @@ module.exports = {
     ],
   },
   plugins: [
+    new ESMOutputPlugin(),
     new VueLoaderPlugin(),
   ],
 }

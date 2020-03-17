@@ -3,13 +3,12 @@
     [
       "@babel/preset-env",
       {
-        "corejs": 3,
-        "targets": "defaults",
+        "corejs": {
+          "proposals": true,
+          "version": 3
+        },
         "useBuiltIns": "usage"
       }
     ]
-  ],
-  "plugins": [
-    "@vue/transform-vue-jsx"
   ]
 }
